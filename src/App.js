@@ -13,6 +13,9 @@ export default function App() {
     }, []);
   }
 
+  // future note to add else condition to
+  // setUsers with localstorage.getItem
+
   useEffect(() => {
     const usersString = JSON.stringify(users);
     localStorage.setItem("test", usersString);
