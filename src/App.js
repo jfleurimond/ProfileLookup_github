@@ -13,13 +13,12 @@ export default function App() {
     setUsers(JSON.parse(localStorage.getItem("test")));
   }, []);
 
-  console.log(users);
+  console.log(users.login);
 
   useEffect(() => {
     const usersString = JSON.stringify(users);
     localStorage.setItem("test", usersString);
-    console.log(localStorage.getItem("test"));
   }, [users]);
 
-  return <p> test {users.login} </p>;
+  return <> {users.login} </>;
 }
