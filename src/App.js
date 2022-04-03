@@ -1,24 +1,49 @@
 import "./styles.css";
 import { useState, useEffect } from "react";
+import Card from "./card";
 
 export default function App() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([""]);
+  const [value, setValue] = useState([]);
 
-  useEffect(() => {
-    fetch("https://api.github.com/users/jfleurimond")
+  const addProfile = (e) => {
+    e.preventDefault();
+
+    fetch(`https://api.github.com/users/${value}`)
       .then((res) => res.json())
       .then((data) => localStorage.setItem("test", JSON.stringify(data)))
       .catch((err) => console.log(err));
 
-    setUsers(JSON.parse(localStorage.getItem("test")));
-  }, []);
+    users
+      ? setUsers([...users, JSON.parse(localStorage.getItem("test"))])
+      : setUsers(JSON.parse(localStorage.getItem("test")));
 
-  console.log(users.login);
+    setValue("");
+
+    //must save value in users
+  };
+
+  console.log(users);
 
   useEffect(() => {
     const usersString = JSON.stringify(users);
     localStorage.setItem("test", usersString);
   }, [users]);
 
-  return <> {users.login} </>;
+  return (
+    <div classname="main">
+      <form onSubmit={addProfile}>
+        <input
+          className="todo"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        ></input>
+        <button> Add </button>
+      </form>
+
+      <Card />
+
+      <> {users.login} </>
+    </div>
+  );
 }
