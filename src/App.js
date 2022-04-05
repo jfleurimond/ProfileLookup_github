@@ -6,6 +6,7 @@ export default function App() {
   const [users, setUsers] = useState([""]);
   const [value, setValue] = useState([]);
 
+  //next challenge is to add each user's json object to array usestate to then .map them to card component
   const addProfile = (e) => {
     e.preventDefault();
 
@@ -23,7 +24,7 @@ export default function App() {
     //must save value in users
   };
 
-  console.log(users);
+  console.log(localStorage.getItem("test"));
 
   useEffect(() => {
     const usersString = JSON.stringify(users);
@@ -31,7 +32,7 @@ export default function App() {
   }, [users]);
 
   return (
-    <div classname="main">
+    <div className="main">
       <form onSubmit={addProfile}>
         <input
           className="todo"
